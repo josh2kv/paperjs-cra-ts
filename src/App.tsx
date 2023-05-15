@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback, useState } from 'react';
+import { Canvas, View, Layer, Rectangle } from 'react-paper-bindings';
 
 function App() {
+  const [color, setColor] = useState('red');
+
+  const toggleColor = useCallback(() => {
+    setColor(color === 'red' ? 'blue' : 'red');
+  }, [color]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Canvas width={400} height={300} className="graph-paper">
+      <View>
+        <Layer>
+          <Rectangle
+            center={[100, 100]}
+            fillColor={color}
+            size={[50, 50]}
+            onClick={toggleColor}
+          />
+        </Layer>
+      </View>
+    </Canvas>
   );
 }
 
